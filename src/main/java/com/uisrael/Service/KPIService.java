@@ -9,6 +9,7 @@ public interface KPIService {
 	//CRUD
     Kpi Guardar(Kpi kpi);
     Boolean Eliminar(Long id);
+    List<Kpi> Listar();
     
     //Personalizado
     List<Kpi> ListarPorEmpresa(Long empresaId);

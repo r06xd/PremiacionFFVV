@@ -20,11 +20,11 @@ public class KPIController {
 
     @GetMapping
     public List<Kpi> listar() {
-        return kpiService.findAll();
+        return kpiService.Listar();
     }
 
     @PostMapping
     public Kpi crear(@RequestBody Kpi kpi) {
-        return kpiService.guardar(kpi);
+        return kpiService.Guardar(kpi);
     }
 }

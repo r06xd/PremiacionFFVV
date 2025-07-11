@@ -20,11 +20,11 @@ public class EmpresaController {
 
     @GetMapping
     public List<Empresa> listar() {
-        return empresaService.ListarEmpresas();
+        return empresaService.Listar();
     }
 
     @PostMapping
     public Empresa crear(@RequestBody Empresa empresa) {
-        return empresaService.CrearEmpresa(empresa);
+        return empresaService.Crear(empresa);
     }
 }

@@ -11,12 +11,6 @@ import com.uisrael.Service.LogCargaExcelService;
 public class LogCargaExcelServiceImpl implements LogCargaExcelService {
 
 	@Override
-	public LogCargaExcel Registrar(LogCargaExcel log) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public List<LogCargaExcel> ListarPorUsuario(Long usuarioId) {
 		// TODO Auto-generated method stub
 		return null;
@@ -24,6 +18,12 @@ public class LogCargaExcelServiceImpl implements LogCargaExcelService {
 
 	@Override
 	public List<LogCargaExcel> Listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public LogCargaExcel Guardar(LogCargaExcel log) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -18,6 +18,6 @@ public class LogCargaExcelController {
 
     @GetMapping
     public List<LogCargaExcel> listar() {
-        return logCargaExcelService.findAll();
+        return logCargaExcelService.Listar();
     }
 }

@@ -28,4 +28,10 @@ public class KPIServiceImpl implements  KPIService{
 		return null;
 	}
 
+	@Override
+	public List<Kpi> Listar() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

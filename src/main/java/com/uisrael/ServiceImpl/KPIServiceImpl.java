@@ -2,36 +2,39 @@ package com.uisrael.ServiceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.uisrael.Entity.Kpi;
+import com.uisrael.Repository.KPIRepository;
 import com.uisrael.Service.KPIService;
 
 @Service
 public class KPIServiceImpl implements  KPIService{
 
+	@Autowired
+	private KPIRepository kpiRepository;
+
 	@Override
-	public Kpi Guardar(Kpi kpi) {
-		// TODO Auto-generated method stub
-		return null;
+	public Kpi guardar(Kpi kpi) {
+	    return kpiRepository.save(kpi);
 	}
 
 	@Override
-	public List<Kpi> ListarPorEmpresa(Long empresaId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Kpi> listarPorEmpresa(Long empresaId) {
+	    return kpiRepository.findByEmpresaId(empresaId);
 	}
 
 	@Override
-	public Boolean Eliminar(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Kpi> findAll() {
+	    return kpiRepository.findAll();
+	}
+	
+	
+	@Override
+	public void eliminar(Long id) {
+	    kpiRepository.deleteById(id);
 	}
 
-	@Override
-	public List<Kpi> Listar() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

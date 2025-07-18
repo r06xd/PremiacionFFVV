@@ -10,7 +10,8 @@ public interface UsuarioService {
     Usuario guardar(Usuario usuario);
     Optional<Usuario> buscarPorId(Long id);
     Optional<Usuario> buscarPorUsername(String username);
+    Optional<Usuario> buscarPorCorreo(String correo);
     List<Usuario> listarTodos();
 	void eliminar(Long id);
-	void cargarDesdeExcel(InputStream inputStream);
+	
 }

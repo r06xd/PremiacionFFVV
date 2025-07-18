@@ -27,26 +27,54 @@ public class ResultadoKpi {
 
     private Integer periodoMes;
     private Integer periodoAnio;
-    private BigDecimal valorObtenido;
-    private BigDecimal puntosCalculados;
+    private double valorObtenido;
+    private double puntosCalculados;
     private String periodo;
+	public Integer getPeriodoMes() {
+		return periodoMes;
+	}
+	public void setPeriodoMes(Integer periodoMes) {
+		this.periodoMes = periodoMes;
+	}
+	public Integer getPeriodoAnio() {
+		return periodoAnio;
+	}
+	public void setPeriodoAnio(Integer periodoAnio) {
+		this.periodoAnio = periodoAnio;
+	}
+	public double getValorObtenido() {
+		return valorObtenido;
+	}
+	public void setValorObtenido(double valorObtenido) {
+		this.valorObtenido = valorObtenido;
+	}
+	public double getPuntosCalculados() {
+		return puntosCalculados;
+	}
+	public void setPuntosCalculados(double puntosCalculados) {
+		this.puntosCalculados = puntosCalculados;
+	}
+	public String getPeriodo() {
+		return periodo;
+	}
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
     
-    //revisar creados automaticamente
-	public void setperiodoMes(int numericCellValue) {
-		// TODO Auto-generated method stub
-		
+	public Kpi getKpi() {
+	    return kpi;
 	}
-	public void setperiodoAnio(int numericCellValue) {
-		// TODO Auto-generated method stub
-		
+
+	public void setKpi(Kpi kpi) {
+	    this.kpi = kpi;
 	}
-	public void setusuario_id(long numericCellValue) {
-		// TODO Auto-generated method stub
-		
+    
+	public Usuario getUsuario() {
+	    return usuario;
 	}
-	public void setKpiId(long numericCellValue) {
-		// TODO Auto-generated method stub
-		
+
+	public void setUsuario(Usuario usuario) {
+	    this.usuario = usuario;
 	}
 
     // Getters y Setters

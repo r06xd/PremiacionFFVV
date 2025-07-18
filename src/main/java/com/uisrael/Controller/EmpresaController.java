@@ -12,20 +12,47 @@ import org.springframework.web.bind.annotation.RestController;
 import com.uisrael.Entity.Empresa;
 import com.uisrael.Service.EmpresaService;
 
-@RestController
-@RequestMapping("/api/empresas")
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("/empresas")
 public class EmpresaController {
+
     @Autowired
     private EmpresaService empresaService;
 
     @GetMapping
-    public List<Empresa> listar() {
-        return empresaService.Listar();
+    public String listarEmpresas(Model model) {
+        model.addAttribute("empresas", empresaService.listarTodas());
+        return "empresa/listar";
     }
 
-    
-    @PostMapping
-    public Empresa crear(@RequestBody Empresa empresa) {
-        return empresaService.Crear(empresa);
+    @GetMapping("/nueva")
+    public String mostrarFormularioNueva(Model model) {
+        model.addAttribute("empresa", new Empresa());
+        return "empresa/formulario";
+    }
+
+    @PostMapping("/guardar")
+    public String guardarEmpresa(@ModelAttribute Empresa empresa) {
+        empresaService.guardar(empresa);
+        return "redirect:/empresas";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editarEmpresa(@PathVariable Long id, Model model) {
+        Empresa empresa = empresaService.listarTodas()
+            .stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
+
+        model.addAttribute("empresa", empresa);
+        return "empresa/formulario";
+    }
+
+    @GetMapping("/eliminar/{id}")
+    public String eliminarEmpresa(@PathVariable Long id) {
+        empresaService.eliminar(id); // Añade este método en tu service si aún no lo tienes
+        return "redirect:/empresas";
     }
 }

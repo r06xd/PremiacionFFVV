@@ -2,6 +2,7 @@ package com.uisrael.Service;
 
 import java.util.List;
 
+import com.uisrael.Entity.Kpi;
 import com.uisrael.Entity.Premio;
 
 public interface PremioService {

@@ -62,6 +62,17 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Seguridad -->
+		<!--<dependency>
+   			 <groupId>org.springframework.boot</groupId>
+   			 <artifactId>spring-boot-starter-security</artifactId>
+		</dependency>-->
+		<!-- Thymeleaf extras para Spring Security -->
+		<dependency>
+   			 <groupId>org.thymeleaf.extras</groupId>
+   			 <artifactId>thymeleaf-extras-springsecurity6</artifactId>
+		</dependency>
+
 		<dependency>
     <groupId>org.apache.poi</groupId>
     <artifactId>poi-ooxml</artifactId>

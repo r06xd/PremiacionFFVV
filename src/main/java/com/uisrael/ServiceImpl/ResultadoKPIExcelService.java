@@ -1,6 +1,8 @@
 package com.uisrael.ServiceImpl;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,9 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.uisrael.Entity.ResultadoKpi;
 import com.uisrael.Repository.ResultadoKPIRepository;
+import com.uisrael.Service.ResultadoKPIService;
 
 @Service
-public class ResultadoKPIExcelService {
+public class ResultadoKPIExcelService implements ResultadoKPIService{
 
     @Autowired
     private ResultadoKPIRepository resultadoKPIRepository;
@@ -32,4 +35,18 @@ public class ResultadoKPIExcelService {
             }
         }
    */ }
+
+	@Override
+	public ResultadoKpi guardar(ResultadoKpi resultado) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<ResultadoKpi> listarPorUsuarioYPeriodo(Long usuarioId, String periodo) {
+		return resultadoKPIRepository.findAll().stream()
+		        .filter(r -> r.getUsuario().getId().equals(usuarioId))
+		        .filter(r -> r.getPeriodo().equalsIgnoreCase(periodo))
+		        .collect(Collectors.toList());
+	}
 }

@@ -41,5 +41,14 @@ public class Usuario {
         SUPER_ADMIN, SUPERVISOR, VENDEDOR
     }
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
+	
     // Getters y Setters
 }

@@ -11,44 +11,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import java.security.Principal;
+import java.util.Optional;
 
 import com.uisrael.Entity.Usuario;
+import com.uisrael.Entity.Usuario.Rol;
+import com.uisrael.Service.EmpresaService;
 import com.uisrael.Service.UsuarioService;
 
+import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/usuarios")
 public class UsuarioController {
 	 @Autowired
 	    private UsuarioService usuarioService;
-
+	 @Autowired
+	 private EmpresaService empresaService;
+	 
 	    @GetMapping
 	    public String listar(Model model) {
+	    	System.out.print("entra a listar usuarios");
 	        model.addAttribute("usuario", usuarioService.listarTodos());
 	        return "CargaExcel";//"usuarios/listar";
 	    }
 	    
-	    @GetMapping("/cargarExcel")
-	    public String cargaExcel(Model model) {
-	        model.addAttribute("usuario", usuarioService.listarTodos());
-	        return "CargaExcel";
-	    }
-	    
-	    @PostMapping("/cargarExcel")
-	    public String procesarExcel(@RequestParam("archivo") MultipartFile archivo, RedirectAttributes redir) {
-	        try {
-	            usuarioService.cargarDesdeExcel(archivo.getInputStream());
-	            redir.addFlashAttribute("mensaje", "Archivo procesado correctamente.");
-	        } catch (Exception e) {
-	            redir.addFlashAttribute("mensaje", "Error al procesar el archivo: " + e.getMessage());
+	    @GetMapping("/login")
+	    public String mostrarLogin(Model model) {
+	    	model.addAttribute("usuario", new Usuario());
+	    	return "login";
 	        }
-	        return "redirect:/usuarios/CargaExcel";
-	    }
+	    
 
 	    @GetMapping("/nuevo")
 	    public String nuevo(Model model) {
 	        model.addAttribute("usuario", new Usuario());
 	        return "usuarios/formulario";
 	    }
+
 
 	    @PostMapping("/guardar")
 	    public String guardar(@ModelAttribute Usuario usuario) {
@@ -68,4 +67,40 @@ public class UsuarioController {
 	    	usuarioService.eliminar(id);
 	        return "redirect:/usuarios";
 	    }
+	    
+	    @PostMapping("/index")
+	    public String dashboard(Model model, Usuario principal,RedirectAttributes redirectAttributes, HttpSession session) {
+	        System.out.print("entra a dashboard");
+	        Optional<Usuario> usuario = usuarioService.buscarPorCorreo(principal.getCorreo());
+	        if(usuario.isPresent() && usuario.get().getContrasena().equals(principal.getContrasena()))
+	        {
+	        	
+	        	model.addAttribute("usuarioLogueado", usuario.get().getCorreo());
+	        	model.addAttribute("idUsuarioLogeado", usuario.get().getId());
+	        	session.setAttribute("idUsuario", usuario.get().getId());
+	        	return "index";
+	        }
+	        model.addAttribute("usuario", new Usuario());
+	        redirectAttributes.addFlashAttribute("mensajeError", "Las credenciales no son las correctas o el usuario no existe");
+	        return "redirect:/usuarios/login";
+	    }
+	    
+	    @GetMapping("/registro")
+	    public String mostrarFormularioRegistro(Model model) {
+	        model.addAttribute("usuario", new Usuario());
+	        model.addAttribute("empresas", empresaService.listarTodas()); // Debes tener este método
+	        return "registro";
+	    }
+
+
+	    @PostMapping("/registro")
+	    public String registrarUsuario(@ModelAttribute Usuario usuario) {
+	    	System.out.print("entra a registro");
+	        usuario.setRol(Rol.VENDEDOR); // por defecto
+	        usuario.setContrasena(usuario.getContrasena());
+	        usuarioService.guardar(usuario);
+	        return "redirect:/login";
+	    }
+
+
 }

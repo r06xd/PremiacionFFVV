@@ -26,6 +26,8 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Autowired
     private UsuarioRepository UsuarioRepository;
 
+
+
     @Override
     public List<Usuario> listarTodos() {
         return UsuarioRepository.findAll();
@@ -33,6 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public Usuario guardar(Usuario usuario) {
+        usuario.setContrasena(usuario.getContrasena());
         return UsuarioRepository.save(usuario);
     }
 
@@ -51,24 +54,10 @@ public class UsuarioServiceImpl implements UsuarioService {
 		// TODO Auto-generated method stub
 		return Optional.empty();
 	}
-	
+
 	@Override
-	public void cargarDesdeExcel(InputStream inputStream) {
-	    try (Workbook workbook = new XSSFWorkbook(inputStream)) {
-	        Sheet sheet = workbook.getSheetAt(0);
-	        for (Row row : sheet) {
-	            if (row.getRowNum() == 0) continue; // omitir cabecera
-
-	            Usuario u = new Usuario();
-	            u.setNombre(row.getCell(0).getStringCellValue());
-	            u.setCorreo(row.getCell(1).getStringCellValue());
-	            //u.setContrasena(Usuario.Rol.valueOf(row.getCell(2).getStringCellValue().toUpperCase()));
-
-	            UsuarioRepository.save(u);
-	        }
-	    } catch (IOException e) {
-	        throw new RuntimeException("Error al leer Excel", e);
-	    }
+	public Optional<Usuario> buscarPorCorreo(String correo) {
+		// TODO Auto-generated method stub
+		return UsuarioRepository.findByCorreo(correo);
 	}
-
 }

@@ -68,8 +68,8 @@ public class UsuarioController {
 	        return "redirect:/usuarios";
 	    }
 	    
-	    @PostMapping("/index")
-	    public String dashboard(Model model, Usuario principal,RedirectAttributes redirectAttributes, HttpSession session) {
+	    @PostMapping("/validacion")
+	    public String ValidacionUsuario(Model model, Usuario principal,RedirectAttributes redirectAttributes, HttpSession session) {
 	        System.out.print("entra a dashboard");
 	        Optional<Usuario> usuario = usuarioService.buscarPorCorreo(principal.getCorreo());
 	        if(usuario.isPresent() && usuario.get().getContrasena().equals(principal.getContrasena()))
@@ -78,18 +78,32 @@ public class UsuarioController {
 	        	model.addAttribute("usuarioLogueado", usuario.get().getCorreo());
 	        	model.addAttribute("idUsuarioLogeado", usuario.get().getId());
 	        	session.setAttribute("idUsuario", usuario.get().getId());
-	        	return "index";
+	        	model.addAttribute("content", "index");
+	        	return "base";
 	        }
 	        model.addAttribute("usuario", new Usuario());
 	        redirectAttributes.addFlashAttribute("mensajeError", "Las credenciales no son las correctas o el usuario no existe");
 	        return "redirect:/usuarios/login";
 	    }
 	    
+	    @GetMapping("/index")
+	    public String PaginaPrincipal(Model model, Usuario principal,RedirectAttributes redirectAttributes, HttpSession session) {
+	        System.out.print("entra a dashboard");
+	        Long usuarioId = (Long) session.getAttribute("idUsuario");
+	        System.out.print("suuario encontrado ===>>"+usuarioId);
+	        Optional<Usuario> usuario = usuarioService.buscarPorId(usuarioId);
+	        System.out.print("suuario encontrado ===>>"+usuario);
+	        model.addAttribute("usuarioLogueado", usuario.get().getCorreo());
+        	model.addAttribute("idUsuarioLogeado", usuario.get().getId());
+        	model.addAttribute("content", "index");
+        	return "base";
+	    }
+	    
 	    @GetMapping("/registro")
 	    public String mostrarFormularioRegistro(Model model) {
 	        model.addAttribute("usuario", new Usuario());
 	        model.addAttribute("empresas", empresaService.listarTodas()); // Debes tener este método
-	        return "registro";
+	        return "usuarios/registro";
 	    }
 
 

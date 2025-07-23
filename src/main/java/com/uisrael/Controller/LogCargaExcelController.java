@@ -88,6 +88,7 @@ public class LogCargaExcelController {
     	    
 	    model.addAttribute("labels", etiquetas);
 	    model.addAttribute("data", valores);
-    	return "charts";
+    	model.addAttribute("content", "charts");
+        return "base";
     }
 }

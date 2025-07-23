@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KPIs</title>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="fragmentos/sidebar :: sidebar"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="fragmentos/topbar :: topbar"></div>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+
+                <!-- KPIs Table -->
+                <div class="container mt-5">
+					    <div class="card shadow p-4">
+					        <h3 class="text-center text-primary">Formulario KPI</h3>
+					        <form th:action="@{/kpis/guardar}" method="post" th:object="${kpi}">
+					            <input type="hidden" th:field="*{id}"/>
+					            <div class="mb-3">
+					                <label>Nombre:</label>
+					                <input type="text" class="form-control" th:field="*{nombre}" required/>
+					            </div>
+					            <div class="mb-3">
+					                <label>Descripción:</label>
+					                <textarea class="form-control" th:field="*{descripcion}"></textarea>
+					            </div>
+					            <div class="mb-3">
+					                <label>Puntaje Base:</label>
+					                <input type="number" step="0.01" class="form-control" th:field="*{puntajeBase}" required/>
+					            </div>
+					           <!--   <div class="mb-3">
+					                <label>Empresa:</label>
+					                <select class="form-select" th:field="*{empresa}" required>
+					                   <option th:each="emp : ${empresas}" th:value="${emp}" th:text="${emp.nombre}"></option>
+					                </select>
+					            </div>--> 
+					            <div class="mb-3">
+					                <label>Estado:</label>
+					                <select class="form-select" th:field="*{estado}">
+					                    <option th:value="true">Activo</option>
+					                    <option th:value="false">Inactivo</option>
+					                </select>
+					            </div>
+					            <button type="submit" class="btn btn-primary w-100">Guardar</button>
+					        </form>
+					    </div>
+					</div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div th:replace="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+
+</body>
+</html>
+

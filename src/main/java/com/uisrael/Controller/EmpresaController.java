@@ -23,22 +23,26 @@ public class EmpresaController {
     @Autowired
     private EmpresaService empresaService;
 
-    @GetMapping
+    @GetMapping("/")
     public String listarEmpresas(Model model) {
         model.addAttribute("empresas", empresaService.listarTodas());
-        return "empresa/listar";
+        model.addAttribute("empresas", empresaService.listarTodas());
+        model.addAttribute("content", "empresas/listar");
+        return "base";
     }
 
     @GetMapping("/nueva")
     public String mostrarFormularioNueva(Model model) {
         model.addAttribute("empresa", new Empresa());
-        return "empresa/formulario";
+        model.addAttribute("content", "empresas/formulario");
+        return "base";
     }
 
     @PostMapping("/guardar")
-    public String guardarEmpresa(@ModelAttribute Empresa empresa) {
+    public String guardarEmpresa(@ModelAttribute Empresa empresa, Model model) {
         empresaService.guardar(empresa);
-        return "redirect:/empresas";
+        model.addAttribute("content", "empresas/");
+        return "base";
     }
 
     @GetMapping("/editar/{id}")
@@ -47,12 +51,13 @@ public class EmpresaController {
             .stream().filter(e -> e.getId().equals(id)).findFirst().orElse(null);
 
         model.addAttribute("empresa", empresa);
-        return "empresa/formulario";
+        model.addAttribute("content", "empresas/formulario");
+        return "base";
     }
 
     @GetMapping("/eliminar/{id}")
     public String eliminarEmpresa(@PathVariable Long id) {
         empresaService.eliminar(id); // Añade este método en tu service si aún no lo tienes
-        return "redirect:/empresas";
+        return "redirect:/empresas/";
     }
 }

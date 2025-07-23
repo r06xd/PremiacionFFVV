@@ -42,7 +42,7 @@ public class EmpresaController {
     public String guardarEmpresa(@ModelAttribute Empresa empresa, Model model) {
         empresaService.guardar(empresa);
         model.addAttribute("content", "empresas/");
-        return "base";
+        return "redirect:/empresas/";
     }
 
     @GetMapping("/editar/{id}")

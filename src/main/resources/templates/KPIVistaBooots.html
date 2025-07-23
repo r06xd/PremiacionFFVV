@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>KPIs</title>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body id="page-top">
+
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <div th:replace="fragmentos/sidebar :: sidebar"></div>
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+
+            <!-- Topbar -->
+            <div th:replace="fragmentos/topbar :: topbar"></div>
+
+            <!-- Main Content -->
+            <div class="container-fluid">
+
+                <!-- KPIs Table -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">KPIs</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="container mt-1">
+                                    <div class="d-flex justify-content-between mb-3">
+                                        <h3>Lista de KPIs</h3>
+                                        <a class="btn btn-secondary" th:href="@{/kpis/nuevo}">
+                                            <i class="fas fa-file"></i> Nuevo KPI
+                                        </a>
+                                    </div>
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                        <tr class="table-info">
+                                            <th>Nombre</th>
+                                            <th>Descripción</th>
+                                            <th>Puntaje Base</th>
+                                            <th>Empresa</th>
+                                            <th>Estado</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="kpi : ${kpis}">
+                                            <td th:text="${kpi.nombre}"></td>
+                                            <td th:text="${kpi.descripcion}"></td>
+                                            <td th:text="${kpi.puntajeBase}"></td>
+                                            <td th:text="${kpi.empresa.nombre}"></td>
+                                            <td th:text="${kpi.estado} ? 'Activo' : 'Inactivo'"></td>
+                                            <td>
+                                                <a th:href="@{/kpis/editar/{id}(id=${kpi.id})}" class="btn btn-sm btn-warning">Editar</a>
+                                                <a th:href="@{/kpis/eliminar/{id}(id=${kpi.id})}" class="btn btn-sm btn-danger"
+                                                   onclick="return confirm('¿Estás seguro de que deseas eliminar este KPI?');">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div th:replace="fragmentos/footer :: footer"></div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+
+</body>
+</html>
+
+
+

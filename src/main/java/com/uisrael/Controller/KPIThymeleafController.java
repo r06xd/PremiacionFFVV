@@ -1,5 +1,6 @@
 package com.uisrael.Controller;
 
+import com.uisrael.Entity.Empresa;
 import com.uisrael.Entity.Kpi;
 import com.uisrael.Service.EmpresaService;
 import com.uisrael.Service.KPIService;
@@ -18,23 +19,26 @@ public class KPIThymeleafController {
     @Autowired
     private EmpresaService empresaService;
 
-    @GetMapping
+    @GetMapping("/")
     public String listar(Model model) {
         model.addAttribute("kpis", kpiService.findAll());
-        return "kpi/listar";
+        model.addAttribute("empresa", new Empresa());
+        model.addAttribute("content", "kpi/listar");
+        return "base";
     }
 
     @GetMapping("/nuevo")
     public String nuevo(Model model) {
         model.addAttribute("kpi", new Kpi());
         model.addAttribute("empresas", empresaService.listarTodas());
-        return "kpi/formulario";
+        model.addAttribute("content", "kpi/formulario");
+        return "base";
     }
 
     @PostMapping("/guardar")
     public String guardar(@ModelAttribute Kpi kpi) {
         kpiService.guardar(kpi);
-        return "redirect:/kpis";
+        return "redirect:/kpis/";
     }
 
     @GetMapping("/editar/{id}")
@@ -47,14 +51,15 @@ public class KPIThymeleafController {
 
         model.addAttribute("kpi", kpi);
         model.addAttribute("empresas", empresaService.listarTodas());
-        return "kpi/formulario";
+        model.addAttribute("content", "kpi/formulario");
+        return "base";
     }
 
 
     @GetMapping("/eliminar/{id}")
     public String eliminar(@PathVariable Long id) {
         kpiService.eliminar(id);
-        return "redirect:/kpis";
+        return "redirect:/kpis/";
     }
 
 }

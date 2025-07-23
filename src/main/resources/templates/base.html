@@ -1,0 +1,47 @@
+<!-- templatesBackup/base.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Recompensas</title>
+    <link th:href="@{/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,300,400,700,900" rel="stylesheet">
+    <link th:href="@{/css/sb-admin-2.min.css}" rel="stylesheet">
+</head>
+<body id="page-top">
+
+<div th:fragment="layout(content)">
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <div th:replace="fragmentos/sidebar :: sidebar"></div>
+
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <!-- Topbar -->
+                <div th:replace="fragmentos/topbar :: topbar"></div>
+
+                <!-- Main Content -->
+                <div class="container-fluid">
+                    <div th:insert="${content}"></div>
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div th:replace="fragmentos/footer :: footer"></div>
+        </div>
+    </div>
+</div>
+
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<script th:src="@{/js/sb-admin-2.min.js}"></script>
+<script th:src="@{/vendor/chart.js/Chart.min.js}"></script>
+<script th:src="@{/js/demo/chart-area-demo.js}"></script>
+<script th:src="@{/js/demo/chart-pie-demo.js}"></script>
+
+</body>
+</html>
